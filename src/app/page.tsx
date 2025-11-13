@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Advocate } from "./types"
 
 export default function Home() {
   const [advocates, setAdvocates] = useState([]);
@@ -17,23 +18,20 @@ export default function Home() {
   }, []);
 
   const onChange = (e) => {
-    const searchTerm = e.target.value;
+    // Get query and sanitize input
+    const searchTerm = e.target.value.toLowerCase().trim();
+    if (searchTerm.length >= 3) {
+      document.getElementById("search-term").innerHTML = searchTerm;
 
-    document.getElementById("search-term").innerHTML = searchTerm;
+      console.log("filtering advocates...");
+      const filteredAdvocates = advocates.filter((advocate: Advocate) => {
+        return (
+          advocate.specialties.some(speciality => speciality.toLowerCase().includes(searchTerm))
+        );
+      });
 
-    console.log("filtering advocates...");
-    const filteredAdvocates = advocates.filter((advocate) => {
-      return (
-        advocate.firstName.includes(searchTerm) ||
-        advocate.lastName.includes(searchTerm) ||
-        advocate.city.includes(searchTerm) ||
-        advocate.degree.includes(searchTerm) ||
-        advocate.specialties.includes(searchTerm) ||
-        advocate.yearsOfExperience.includes(searchTerm)
-      );
-    });
-
-    setFilteredAdvocates(filteredAdvocates);
+      setFilteredAdvocates(filteredAdvocates);
+    }
   };
 
   const onClick = () => {
@@ -69,7 +67,7 @@ export default function Home() {
           </tr>
         </thead>
         <tbody>
-          {filteredAdvocates.map((advocate) => {
+          {filteredAdvocates.map((advocate: Advocate) => {
             return (
               <tr>
                 <td>{advocate.firstName}</td>
