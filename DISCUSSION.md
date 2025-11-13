@@ -1,0 +1,2 @@
+1. LW-0003 Added `Advocate` type, and removed several fields from search logic.
+I feel the search was searching too many fields, which may not include pertinent information, and also slowing down the feature. Some of these fields would be better used in a filtering sidebar or header, such as `degree` which could be just a few checkboxes. If time permits I will add a filter UI element.
