@@ -21,11 +21,6 @@ export default function Home() {
     // Get query and sanitize input
     const searchTerm = e.target.value.toLowerCase().trim();
     if (searchTerm.length >= 3) {
-      const searchTermInput = document.getElementById("search-term");
-      if (searchTermInput != null) {
-        searchTermInput.innerHTML = searchTerm;
-      }
-
       console.log("filtering advocates...");
       const filteredAdvocates = advocates.filter((advocate: Advocate) => {
         return (
@@ -44,46 +39,42 @@ export default function Home() {
 
   return (
     <main style={{ margin: "24px" }}>
-      <h1>Solace Advocates</h1>
+      <h1 className="mb-4 text-slate-50 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-4xl">Solace Advocates</h1>
       <br />
       <br />
-      <div>
-        <p>Search</p>
-        <p>
-          Searching for: <span id="search-term"></span>
-        </p>
-        <input style={{ border: "1px solid black" }} onChange={onChange} />
-        <button onClick={onClick}>Reset Search</button>
+      <div className="w-full max-w-sm min-w-[200px]">
+        <input className="w-full bg-transparent placeholder:text-slate-50 text-slate-50 text-sm border border-slate-50 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow" placeholder="Search" onChange={onChange} />
+        <button className="text-slate-50" onClick={onClick}>Reset Search</button>
       </div>
       <br />
       <br />
-      <table>
-        <thead>
+      <table className="table-auto w-full bg-white border border-gray-300">
+        <thead className="bg-slate-500 text-white">
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>City</th>
-            <th>Degree</th>
-            <th>Specialties</th>
-            <th>Years of Experience</th>
-            <th>Phone Number</th>
+            <th className="border border-gray-300 px-4 py-2">First Name</th>
+            <th className="border border-gray-300 px-4 py-2">Last Name</th>
+            <th className="border border-gray-300 px-4 py-2">City</th>
+            <th className="border border-gray-300 px-4 py-2">Degree</th>
+            <th className="border border-gray-300 px-4 py-2">Specialties</th>
+            <th className="border border-gray-300 px-4 py-2">Years of Experience</th>
+            <th className="border border-gray-300 px-4 py-2">Phone Number</th>
           </tr>
         </thead>
         <tbody>
           {filteredAdvocates.map((advocate: Advocate) => {
             return (
               <tr key={advocate.phoneNumber}>
-                <td>{advocate.firstName}</td>
-                <td>{advocate.lastName}</td>
-                <td>{advocate.city}</td>
-                <td>{advocate.degree}</td>
-                <td>
+                <td className="border border-gray-300 px-4 py-2">{advocate.firstName}</td>
+                <td className="border border-gray-300 px-4 py-2">{advocate.lastName}</td>
+                <td className="border border-gray-300 px-4 py-2">{advocate.city}</td>
+                <td className="border border-gray-300 px-4 py-2">{advocate.degree}</td>
+                <td className="border border-gray-300 px-4 py-2">
                   {advocate.specialties.map((s) => (
                     <div key={s}>{s}</div>
                   ))}
                 </td>
-                <td>{advocate.yearsOfExperience}</td>
-                <td>{advocate.phoneNumber}</td>
+                <td className="border border-gray-300 px-4 py-2">{advocate.yearsOfExperience}</td>
+                <td className="border border-gray-300 px-4 py-2">{advocate.phoneNumber}</td>
               </tr>
             );
           })}
